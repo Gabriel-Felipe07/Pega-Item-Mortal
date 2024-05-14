@@ -136,7 +136,9 @@ def main():
         ] # Carro na pista 6
     
     inimigos_lista = [
-        
+        Inimigos(60,60,random.randint(0,500),-100,15,"imagens/bomba.png"),
+        Inimigos(60,60,random.randint(0,500),-100,15,"imagens/goomba.png"),
+        Inimigos(60,60,random.randint(0,500),-100,15,"imagens/inimigo.png")
     ]
 
     # Criando personagem
@@ -162,8 +164,14 @@ def main():
         for cogumelo in cogumelos_lista:
             cogumelo.move_cogumelos()
 
+        for inimigo in inimigos_lista:
+            inimigo.move_inimigo()
+
     #desenhando os objetos
-        # Desenhar objetos
+
+        for inimigo in inimigos_lista:
+            inimigo.cria_inimigo(janela.display)
+
         janela.background()
         for cogumelo in cogumelos_lista:
             cogumelo.cria_cogumelos(janela.display)
@@ -171,21 +179,21 @@ def main():
         personagem.movimentacao_jogador(10)
         personagem.cria_jogador(janela.display)
 
-    #verificação de colizão e diminuindo pontuação
+    #verificação de colizão e aumentando pontuação
         for cogumelo in cogumelos_lista:
             if personagem.mascara.overlap(cogumelo.mascara,(cogumelo.pos_x - personagem.pos_x, cogumelo.pos_y - personagem.pos_y)):
                 cogumelo.pos_x = random.randint(0,499)
-                cogumelo.pos_y = random.randint(0,499)
+                cogumelo.pos_y = -100
                 menu_pontuacao.aumenta_pontuacao()
+                
+        #verificando condição de diminuir pontuação
+        for inimigo in inimigos_lista:
+            if personagem.mascara.overlap(cogumelo.mascara,(inimigo.pos_x - personagem.pos_x, inimigo.pos_y - personagem.pos_y)):
+                inimigo.pos_x = random.randint(0,500)
+                inimigo.pos_y = -100
+                menu_pontuacao.diminui_pontuacao()
                 while menu_pontuacao.pontuacao < 0:
                     menu_pontuacao.pontuacao =0
-        #verificando condição de ganhar e aumentando pontuação 
-        if personagem.pos_y <= 0:
-            menu_pontuacao.aumenta_pontuacao()
-                        #se o personagem passar dos parametros da tela, voltará à posição inicial
-            if personagem.pos_x >= 800 or personagem.pos_x <= 0:
-                personagem.pos_x = 350
-                personagem.pos_y = 355
 
         # Atualizar e desenhar a pontuação
         menu_pontuacao.atualiza_pontuacao(janela.display)
