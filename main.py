@@ -77,6 +77,28 @@ class cogumelos:
     def cria_cogumelos(self, tela):#criando carro
         tela.blit(self.imagem, (self.pos_x, self.pos_y))
 
+class Inimigos:
+    def __init__(self, width, height, pos_x, pos_y, velocidade, tipo):#função init
+        self.width = width#definindo width
+        self.height = height#definindo height
+        self.pos_x = pos_x  # Identificador da pista (1, 2, 3, etc.)
+        self.velocidade = velocidade  # Velocidade horizontal dos carros
+        self.pos_y = pos_y
+        self.imagem = pygame.image.load(tipo)#carregando imagem
+        self.imagem = pygame.transform.scale(self.imagem, (self.width, self.height))#definindo escala para o carro
+
+        self.mascara = pygame.mask.from_surface(self.imagem) #criando mascara para o carro
+
+    #movimentação do carro
+    def move_inimigo(self):
+        # O carro vai andando conforme a velocidade descrita
+        self.pos_y += self.velocidade #definindo velocidade
+        # Se o carro passar do limite da tela, redefine sua posição para a posição inicial
+        if self.pos_y >= 800:#se passar da tela, retorna
+            self.pos_y = 0
+
+    def cria_inimigo(self, tela):#criando carro
+        tela.blit(self.imagem, (self.pos_x, self.pos_y))
 
 class MenuPontuacao:
     def __init__(self, fonte, tamanho_fonte):#função inicial
