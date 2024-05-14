@@ -51,7 +51,7 @@ class Jogador:
 
         if self.pos_x >= 800 or self.pos_x <= 0:
             self.pos_x = 350
-            self.pos_y = 443
+            self.pos_y = 355
 
 
 class cogumelos:
@@ -107,8 +107,15 @@ def main():
 
     # Criando carros
     cogumelos_lista = [
-        cogumelos(60,60,random.randint(0,499),random.randint(0,499),15,"imagens/amarelo.png") # cogumelo 1
+        cogumelos(60,60,random.randint(0,500),-100,15,"imagens/amarelo.png"),
+        cogumelos(60,60,random.randint(0,500),-100,15,"imagens/verde.png"),
+        cogumelos(60,60,random.randint(0,500),-100,15,"imagens/vermelho.png"),
+        cogumelos(60,60,random.randint(0,500),-100,15,"imagens/azul.png") # cogumelo 1
         ] # Carro na pista 6
+    
+    inimigos_lista = [
+        
+    ]
 
     # Criando personagem
     personagem = Jogador(110,100, 350,355,"imagens/mario.png")
@@ -139,7 +146,7 @@ def main():
         for cogumelo in cogumelos_lista:
             cogumelo.cria_cogumelos(janela.display)
 
-        personagem.movimentacao_jogador(6)
+        personagem.movimentacao_jogador(10)
         personagem.cria_jogador(janela.display)
 
     #verificação de colizão e diminuindo pontuação
